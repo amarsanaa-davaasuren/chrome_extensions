@@ -1,0 +1,15 @@
+
+
+{
+    "manifest_version" : 2,
+    "name":"Atcoder Performance Colorizer",
+    "version":"0.1",
+    "content_scripts":[
+        {
+            "matches":[
+                "https://atcoder.jp/users/*/history"
+            ],
+            "js": ["content.js"]
+        }
+    ]
+}
