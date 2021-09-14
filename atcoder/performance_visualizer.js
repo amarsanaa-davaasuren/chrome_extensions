@@ -1,4 +1,8 @@
 
+
+console.log("A");
+
+
 let rows = document.getElementsByTagName("table")[0].rows
 
 for (elt of rows){
@@ -27,7 +31,7 @@ for (elt of rows){
     else if (performance < 2400){
         elt.cells[3].className = "user-yellow"
     }
-    else if (performance < 2400){
+    else if (performance < 2800){
         elt.cells[3].className = "user-orange"
     }
     else{
