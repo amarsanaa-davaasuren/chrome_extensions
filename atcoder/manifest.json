@@ -4,9 +4,9 @@
     "manifest_version" : 3,
     "name":"Atcoder Performance Colorizer",
     "version":"0.1",
-    "web_accessible_resources":[{
-
-    }],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
     "content_scripts":[
         {
             "matches":["https://atcoder.jp/users/*/history"],
@@ -19,6 +19,7 @@
             "js": ["standing_editor.js"]
         }
     ],
+    "action": { },
     "icons": { "16": "shiba_icon.png",
         "48": "shiba_icon.png",
        "128": "shiba_icon.png" }

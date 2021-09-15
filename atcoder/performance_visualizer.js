@@ -38,32 +38,27 @@ for (elt of rows){
 performances = performances.reverse();
 
 let canvas = document.createElement("canvas");
-canvas.width  = 500;
+canvas.width  = 900;
 canvas.height = 320;
 canvas.setAttribute("id", "performance_graph");
 let w = Math.floor(canvas.width/performances.length);
 
-let a = document.getElementsByClassName("user-red");
-console.log(a);
-
-
 document.getElementsByClassName("checkbox")[0].appendChild(canvas);
 
 var ctx = canvas.getContext('2d');
-let max_performance = Math.max(...performances);
+let max_performance = Math.max(...performances) + 400;
 
 let from = performances[0];
 from /= max_performance;
 from *= canvas.height;
 from = Math.floor(from);
-ctx.beginPath(); 
 
 ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
 let prevh = canvas.height;
 ctx.globalAlpha = 0.5;
+
 for (elt of [400,800,1200,1600,2000,2400,2800,100000]) {
-    ctx.beginPath(); 
     let h = Math.floor((1-elt/max_performance)*canvas.height);
     h = Math.min(h,canvas.height);
     
@@ -112,9 +107,52 @@ for (let i = 0; i < performances.length-1; i++){
     to *= canvas.height;
     to = Math.floor(to);
     
-    ctx.lineTo((i+1)*w,canvas.height-to);  // Draw a line to (150, 100)
-      
+    ctx.lineTo((i+1)*w,canvas.height-to); 
 }
 ctx.strokeStyle="black";
 ctx.stroke();    
 
+
+
+for (let i = 0; i < performances.length; i++){
+    let performance = performances[i];
+    performance /= max_performance;
+    performance *= canvas.height;
+    performance = Math.floor(performance);
+    ctx.beginPath();
+    let radius = 4
+    ctx.arc(i*w, canvas.height-performance, radius, 0, Math.PI*2, 1);
+    
+    performance = performances[i];
+    if (performance < 400){
+        ctx.fillStyle = "rgb(128, 128, 128)";
+    }
+    else if (performance < 800){
+        ctx.fillStyle = "rgb(128, 64, 0)";
+    }
+    else if (performance < 1200){
+        ctx.fillStyle = "rgb(0, 128, 0)";
+    }
+    else if (performance < 1600){
+        ctx.fillStyle = "rgb(0, 192, 192)";
+    }
+    else if (performance < 2000){
+        ctx.fillStyle = "rgb(0, 0, 255)";
+    }
+    else if (performance < 2400){
+        ctx.fillStyle = "rgb(192, 192, 0)";
+    }
+    else if (performance < 2800){
+        ctx.fillStyle = "rgb(255, 128, 0)";
+    }
+    else{
+        ctx.fillStyle = "rgb(255, 0, 0)";
+    }
+
+        
+    
+    ctx.fill();
+    ctx.strokeStyle="black";
+    ctx.stroke();
+
+}
