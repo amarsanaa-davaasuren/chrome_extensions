@@ -1,10 +1,4 @@
-var script = document.createElement('script');
-let url = chrome.runtime.getURL("chart.js");
-script.src = url;
-
-//   script.addEventListener('load', postLoadFunction);
-document.head.appendChild(script);
-let rows = document.getElementsByTagName("table")[0].rows
+let rows = document.getElementsByTagName("table")[0].rows;
 let performances = [];
 
 for (elt of rows){

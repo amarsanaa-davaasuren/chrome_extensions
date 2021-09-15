@@ -5,8 +5,7 @@
     "name":"Atcoder Performance Colorizer",
     "version":"0.1",
     "web_accessible_resources":[{
-        "resources": [ "chart.js"],
-        "matches":["https://atcoder.jp/*" ]
+
     }],
     "content_scripts":[
         {
