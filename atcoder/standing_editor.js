@@ -1,4 +1,2 @@
 
 
-console.log("A");
-
