@@ -1,6 +1,6 @@
 .main_container{
-    width :400px;
-    height: 600px;
+    width :200px;
+    height: 60px;
     display: flex;
     flex-direction:column;
     justify-content: space-evenly;
@@ -8,10 +8,15 @@
     position: absolute;
     color: black;
     z-index:0;
-    top: 50%;
-    left: 50%;
+    top: 36%;
+    left: 85%;
     transform: translate(-50%,-50%);
 
-    font-size:30px;
-    background-color:red;
+    font-size:10px;
+    background-color:transparent;
+}
+
+
+#compare{
+    font-size:15px;
 }

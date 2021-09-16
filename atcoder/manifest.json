@@ -8,18 +8,6 @@
     "background": {
         "service_worker": "./service-worker.js"
     },
-    // "content_scripts":[
-    //     {
-    //         "matches":["https://atcoder.jp/users/*/history"],
-    //         "js": ["./performance_visualizer.js"]
-    //     },
-    //     {
-    //         "matches":[
-    //             "https://atcoder.jp/*/*/standings"
-    //         ],
-    //         "js": ["./standing_editor.js"]
-    //     }
-    // ],
     "action": {
         "default_popup":"popup.html",
         "defautl_icons":{

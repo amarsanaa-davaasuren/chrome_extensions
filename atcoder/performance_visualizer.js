@@ -161,15 +161,21 @@ for (let i = 0; i < performances.length; i++){
 
 
 
-// const main_container = document.createElement("DIV");
-// const name_c = document.createElement("INPUT");
-// const button_c = document.createElement("DIV");
+const main_container = document.createElement("DIV");
+const name_c = document.createElement("INPUT");
+const compare = document.createElement("DIV");
 
-// main_container.classList.add("main_container");
-// name_c.id = "name_c";
-// button_c.id = "button_c";
+main_container.classList.add("main_container");
+name_c.id = "name_c";
+compare.id = "compare";
+compare.innerHTML = "compare with";
+main_container.appendChild(compare);
+main_container.appendChild(name_c);
 
-// main_container.appendChild(name_c);
-// main_container.appendChild(button_c);
+document.querySelector("body").appendChild(main_container);
 
-// document.querySelector("body").appendChild(main_container);
+
+
+(async () => {
+    console.log(Math.floor(Math.random()*1000));    
+})();

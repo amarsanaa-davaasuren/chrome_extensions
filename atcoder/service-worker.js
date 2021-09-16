@@ -14,7 +14,7 @@ chrome.storage.local.get("name",data => {
 
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.status === "complete" && /^http/.test(tab.url)){
+    if (changeInfo.status === "complete" && /^http.*history/.test(tab.url)){
 
         chrome.scripting.insertCSS({
             target: {tabId: tabId},
@@ -32,9 +32,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     
             })
             .catch(err => console.log(err));
-
     }
-    
 });
 
 
@@ -46,3 +44,7 @@ chrome.runtime.onMessage.addListener((request,sender,sendResponse) => {
         })
     }
 });
+
+
+
+
