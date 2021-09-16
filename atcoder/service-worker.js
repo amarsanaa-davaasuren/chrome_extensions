@@ -12,9 +12,10 @@ chrome.storage.local.get("name",data => {
 
 });
 
-
+let tabId_ = "-1";
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === "complete" && /^http.*history/.test(tab.url)){
+        tabId_ = tabId;
 
         chrome.scripting.insertCSS({
             target: {tabId: tabId},
