@@ -38,13 +38,29 @@ for (elt of rows){
 
 performances = performances.reverse();
 
+
+
+const performance_visualizer_div = document.createElement("DIV");
+performance_visualizer_div.classList.add("performance_visualizer");
+
 let canvas = document.createElement("canvas");
-canvas.width  = 900;
-canvas.height = 320;
 canvas.setAttribute("id", "performance_graph");
+performance_visualizer_div.appendChild(canvas);
+let checkbox = document.getElementsByClassName("checkbox")[0]
+checkbox.parentNode.insertBefore(performance_visualizer_div,checkbox);
+
+
+let box = document.querySelector('.table-responsive');
+let style = getComputedStyle(box);
+let width = parseInt(style.width);
+
+canvas.width  = width;
+canvas.height = 320;
+
+
 let w = Math.floor(canvas.width/performances.length);
 
-document.getElementsByClassName("checkbox")[0].appendChild(canvas);
+
 
 var ctx = canvas.getContext('2d');
 let max_performance = Math.max(...performances) + 400;
@@ -161,21 +177,12 @@ for (let i = 0; i < performances.length; i++){
 
 
 
-const main_container = document.createElement("DIV");
-const name_c = document.createElement("INPUT");
-const compare = document.createElement("DIV");
+const rival_id_div = document.createElement("DIV");
+rival_id_div.innerHTML = "compare with: "
+const rival_id_input = document.createElement("INPUT");
+rival_id_input.id = "rival_id_input";
+rival_id_div.appendChild(rival_id_input)
+checkbox.parentNode.insertBefore(rival_id_div,checkbox);
 
-main_container.classList.add("main_container");
-name_c.id = "name_c";
-compare.id = "compare";
-compare.innerHTML = "compare with";
-main_container.appendChild(compare);
-main_container.appendChild(name_c);
+// document.querySelector("body").appendChild(main_container);
 
-document.querySelector("body").appendChild(main_container);
-
-
-
-(async () => {
-    console.log(Math.floor(Math.random()*1000));    
-})();

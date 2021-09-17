@@ -1,4 +1,4 @@
-.main_container{
+.test{
     width :200px;
     height: 60px;
     display: flex;
@@ -17,6 +17,5 @@
 }
 
 
-#compare{
-    font-size:15px;
-}
+
+

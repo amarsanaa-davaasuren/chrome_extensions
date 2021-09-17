@@ -3,20 +3,20 @@
 {
     "name":"Atcoder Performance Colorizer",
     "description": "chrome extension for atcoder",
-    "version":"0.0.1",
-    "manifest_version" : 3,
+    "version":"0.1",
+    "manifest_version": 3,
     "background": {
-        "service_worker": "./service-worker.js"
+        "service_worker": "./scripts/service-worker.js"
     },
     "action": {
-        "default_popup":"popup.html",
+        "default_popup":"./html/popup.html",
         "defautl_icons":{
-            "16": "./shiba_icon.png",
-            "48": "./shiba_icon.png",
-           "128": "./shiba_icon.png" 
+            "16": "./assets/images/shiba_icon.png",
+            "48": "./assets/images/shiba_icon.png",
+           "128": "./assets/images/shiba_icon.png" 
         }
     },
-    "options_page":"options.html",
+    "options_page":"./html/options.html",
     "permissions":[
         "activeTab",
         "tabs",
@@ -27,8 +27,8 @@
         "https://atcoder.jp/*/history"
     ],
     "icons": { 
-        "16": "shiba_icon.png",
-        "48": "shiba_icon.png",
-       "128": "shiba_icon.png" 
+        "16":  "./assets/images/shiba_icon.png",
+        "48":  "./assets/images/shiba_icon.png",
+       "128":  "./assets/images/shiba_icon.png"
     }
 }
