@@ -26,6 +26,7 @@ function drawOnCanvas(){
 
     let performances = [];
     for (elt of rows){
+    
         let performance = parseInt(elt.cells[3].innerHTML);
         
         if (!Number.isInteger(performance)){
@@ -58,8 +59,7 @@ function drawOnCanvas(){
         }
         performances.push(performance);
     }
-    
-    
+
     performances = performances.reverse();
 
     
@@ -198,7 +198,7 @@ checkbox.parentNode.insertBefore(rival_id_div,checkbox);
 
 drawOnCanvas();
 document.querySelectorAll('input[type=search]').forEach(item => {
-    item.addEventListener('keypress', event => {
+    item.addEventListener('keydown', event => {
         drawOnCanvas();
     })
 })
