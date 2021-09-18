@@ -77,13 +77,14 @@ function drawOnCanvas(){
     from /= performance_width;
     from *= canvas.height;
     from = Math.floor(from);
-    
+    ctx.lineWidth = 4;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = 1;
     
     let prevh = canvas.height;
     ctx.globalAlpha = 0.5;
     
-    for (elt of [400,800,1200,1600,2000,2400,2800,100000]) {
+    for (elt of [400,800,1200,1600,2000,2400,2800,9999999]) {
         let h = Math.floor((1-(elt-min_performance)/performance_width)*canvas.height);
         h = Math.min(h,canvas.height);
         
