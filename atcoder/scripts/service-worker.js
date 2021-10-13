@@ -45,6 +45,12 @@ chrome.runtime.onMessage.addListener((request,sender,sendResponse) => {
             payload:"mrsn"
         })
     }
+    if (request.message === "get_on_flag"){
+        sendResponse({
+            message:"success",
+            payload:"mrsn"
+        })
+    }
 });
 
 

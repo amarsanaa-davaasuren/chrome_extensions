@@ -2,7 +2,7 @@
 
 let performances = [];
 let performance_change = 0;
-
+let on_flag = 0;
 let changes = [0,0,0,0]; // 0-abc 1-arc 3-agc 4-other
 var changes_contest = {
     0: "ABC",
@@ -21,11 +21,6 @@ let performance_analyzer = document.createElement("DIV");
 performance_analyzer.setAttribute("id","performance_analyzer");
 
 canvas.setAttribute("id", "performance_graph");
-performance_visualizer_div.appendChild(performance_analyzer);
-performance_visualizer_div.appendChild(canvas);
-
-let checkbox = document.getElementsByClassName("checkbox")[0]
-checkbox.parentNode.insertBefore(performance_visualizer_div,checkbox);
 
 
 let box = document.querySelector('.table-responsive');
@@ -202,12 +197,37 @@ function drawOnCanvas(){
 // rival_id_div.appendChild(rival_id_input)
 // checkbox.parentNode.insertBefore(rival_id_div,checkbox);
 
-getPerformances();
-drawOnCanvas();
+function wrapper(){    
+    getPerformances();
+    drawOnCanvas();
+    
+}
 document.querySelectorAll('input[type=search]').forEach(item => {
     item.addEventListener('keydown', event => {
-        getPerformances();
-        drawOnCanvas();
+        wrapper();
     })
 })
+
+
+function main(){
+
+    chrome.runtime.sendMessage(
+        {
+            message:"get_on_flag",
+        },
+        response => {
+            if (response.message === "success"){
+                performance_visualizer_div.appendChild(performance_analyzer);
+                performance_visualizer_div.appendChild(canvas);
+                
+                let checkbox = document.getElementsByClassName("checkbox")[0]
+                checkbox.parentNode.insertBefore(performance_visualizer_div,checkbox);
+                wrapper();
+            }
+        }
+    );
+}
+
+main();
+
 
