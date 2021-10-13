@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener((request,sender,sendResponse) => {
     if (request.message === "get_name"){
         sendResponse({
             message:"success",
-            payload:"woohoo"
+            payload:"mrsn"
         })
     }
 });

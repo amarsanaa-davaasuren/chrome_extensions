@@ -1,13 +1,65 @@
 body{
     width :250px;
-    height: 500px;
+    height: 150px;
     display: flex;
     flex-direction:column;
     justify-content: center;
     align-items: center;
     
-    color: white;
-    font-size:30px;
-    background-color:red;
+    color: rgb(209, 208, 208);
+    font-size:10px;
+    background-color:#121212
 
+}
+
+
+
+h1 {
+    color: rgb(209, 208, 208);
+}
+        
+/* toggle in label designing */
+.toggle {
+    position : relative ;
+    display : inline-block;
+    width : 60px;
+    height : 30px;
+    background-color: green;
+    border-color:black;
+    border-radius: 45px;
+    border: 2px solid rgb(209, 208, 208);
+}
+        
+/* After slide changes */
+.toggle:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(209, 208, 208);
+    top: 0px; 
+    left: 0px;
+    transition:  all 0.3s;
+}
+        
+/* Toggle text */
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+        
+/* Checkbox checked effect */
+.checkbox:checked + .toggle::after {
+    left : 30px; 
+}
+        
+/* Checkbox checked toggle label bg color */
+.checkbox:checked + .toggle {
+    background-color: red;
+}
+        
+/* Checkbox vanished */
+.checkbox { 
+    display : none;
 }
