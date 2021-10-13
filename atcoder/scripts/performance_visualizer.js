@@ -3,6 +3,13 @@
 let performances = [];
 let performance_change = 0;
 
+let changes = [0,0,0,0]; // 0-abc 1-arc 3-agc 4-other
+var changes_contest = {
+    0: "ABC",
+    1:"ARC",
+    2:"AGC",
+    3:"other"
+}
 
 const performance_visualizer_div = document.createElement("DIV");
 performance_visualizer_div.classList.add("performance_visualizer");
@@ -45,6 +52,8 @@ function getPerformances(){
 
     performances = [];
     performance_change = 0;
+    changes = [0,0,0,0];
+
     for (row of rows){
         if (row.cells.length === 1){
             break;
@@ -63,21 +72,42 @@ function getPerformances(){
         }
         performances.push(performance);
         let sign = row.cells[5].innerHTML[0];
-        let value = parseInt(row.cells[5].innerHTML.substring(1));
-        if (!Number.isInteger(value)){
-            performance_change += parseInt(row.cells[4].getElementsByTagName("span")[0].innerHTML);
-        } 
+        let change = parseInt(row.cells[5].innerHTML.substring(1));
+        if (!Number.isInteger(change)){
+            change = parseInt(row.cells[4].getElementsByTagName("span")[0].innerHTML);
+        }
         else{
-            if (sign === "+"){
-                performance_change += value;
-            }
             if (sign === "-"){
-                performance_change -= value;
+                change = -1*change;
             }
         }
+        let contest_name = row.children[1].querySelector('a').innerHTML;
 
+        if (contest_name.indexOf("Beginner") != -1){
+            changes[0] += change;
+        }
+        else if (contest_name.indexOf("Regular") != -1){
+            changes[1] += change;
+        }
+        else if (contest_name.indexOf("Grand") != -1){
+            changes[2] += change;
+        }
+        else{
+            changes[3] += change;
+        }
+        performance_change += change;
     }
-    performance_analyzer.innerHTML = "Rating contribution: " + performance_change;
+    performance_analyzer.innerHTML = "Rating contributions (";
+
+    for(let i = 0; i < changes.length; i++){
+        change = changes[i]
+        contest = "<b>"+changes_contest[i]+"</b>";
+        if (change != 0){
+            performance_analyzer.innerHTML = performance_analyzer.innerHTML +contest +": " + change +", ";
+        }
+    }
+    performance_analyzer.innerHTML = performance_analyzer.innerHTML.substring(0,performance_analyzer.innerHTML.length - 2) + ")";
+
     performances = performances.reverse();
 }
 
@@ -89,7 +119,7 @@ function drawOnCanvas(){
     let w = Math.floor(canvas.width/(performances.length+1));
 
     var ctx = canvas.getContext('2d');
-    let max_performance = Math.max(...performances) + 400;
+    let max_performance = Math.max(...performances) + 300;
     if (max_performance < 0) max_performance = 3200;
     let min_performance = Math.min(0,Math.min(...performances));
     let performance_width = max_performance - min_performance;    
@@ -164,13 +194,13 @@ function drawOnCanvas(){
 
 
 
-const rival_id_div = document.createElement("DIV");
-rival_id_div.innerHTML = "Compare with: "
-const rival_id_input = document.createElement("INPUT");
-rival_id_input.id = "rival_id_input";
-rival_id_input.type = "search";
-rival_id_div.appendChild(rival_id_input)
-checkbox.parentNode.insertBefore(rival_id_div,checkbox);
+// const rival_id_div = document.createElement("DIV");
+// rival_id_div.innerHTML = "Compare with: "
+// const rival_id_input = document.createElement("INPUT");
+// rival_id_input.id = "rival_id_input";
+// rival_id_input.type = "search";
+// rival_id_div.appendChild(rival_id_input)
+// checkbox.parentNode.insertBefore(rival_id_div,checkbox);
 
 getPerformances();
 drawOnCanvas();
