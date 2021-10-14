@@ -200,10 +200,14 @@ function drawOnCanvas(){
 function wrapper(){    
     getPerformances();
     drawOnCanvas();
-    
+    getPerformances();
+    drawOnCanvas();
 }
 document.querySelectorAll('input[type=search]').forEach(item => {
     item.addEventListener('keydown', event => {
+        wrapper();
+    })
+    item.addEventListener('keyup', event => {
         wrapper();
     })
 })
