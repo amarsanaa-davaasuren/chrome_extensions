@@ -111,7 +111,7 @@ function drawOnCanvas(){
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    let w = Math.floor(canvas.width/(performances.length+1));
+    let unit_width = canvas.width/(performances.length+1);
 
     var ctx = canvas.getContext('2d');
     let max_performance = Math.max(...performances) + 300;
@@ -122,8 +122,8 @@ function drawOnCanvas(){
     let from = performances[0];
     from /= performance_width;
     from *= canvas.height;
-    from = Math.floor(from);
-    ctx.lineWidth = 4;
+    from = (from);
+    ctx.lineWidth = 5;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = 1;
 
@@ -131,71 +131,58 @@ function drawOnCanvas(){
     ctx.globalAlpha = 0.5;
     
     for (key in color_dic) {
-        let h = Math.floor((1-(key-min_performance)/performance_width)*canvas.height);
+        let h = ((1-(key-min_performance)/performance_width)*canvas.height);
         h = Math.min(h,canvas.height);
         ctx.fillStyle = color_dic[key];
         ctx.fillRect(0,h,canvas.width,prevh-h);
         if (key > max_performance) break;
         prevh = h;
-        
     }
-    // ctx.strokeStyle="black";
+
     ctx.stroke();    
     ctx.beginPath(); 
     ctx.globalAlpha = 1;
-    ctx.moveTo(w,canvas.height-from);
-    
-    for (let i = 0; i < performances.length-1; i++){
-    
-        let to = performances[i+1];
-    
-        to /= max_performance;
-        to *= canvas.height;
-        to = Math.floor(to);
-        
-        ctx.lineTo((i+2)*w,canvas.height-to); 
+    ctx.moveTo(unit_width,canvas.height-from);
+    for(let i = 0; i < performances.length-1; i++){
+        let to_width = (i+2)*unit_width;
+        let to_height = canvas.height-canvas.height*performances[i+1]/max_performance;
+        ctx.lineTo(to_width,to_height); 
     }
     ctx.strokeStyle="black";
-    ctx.stroke();    
-    
-    
+    ctx.stroke(); 
+
     
     for (let i = 0; i < performances.length; i++){
-        let performance = performances[i];
-        performance /= max_performance;
-        performance *= canvas.height;
-        performance = Math.floor(performance);
+        ctx.globalAlpha = 0.5;
+        if ((i+1)%10 == 0){
+            ctx.beginPath();
+            ctx.moveTo((i+1)*unit_width,0);
+            ctx.lineTo((i+1)*unit_width,canvas.height);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle="grey";
+            ctx.stroke(); 
+        }
+        ctx.globalAlpha = 1.0;
+        let height = canvas.height-canvas.height*performances[i]/max_performance;
         ctx.beginPath();
-        let radius = 4
-        ctx.arc((i+1)*w, canvas.height-performance, radius, 0, Math.PI*2, 1);
-        
-        performance = performances[i];
+        let radius = 4.5;
+        ctx.arc((i+1)*unit_width, height, radius, 0, Math.PI*2, 1);
+        let performance = performances[i];
         for (var key in color_dic){
             if (performance < key){
                 ctx.fillStyle = color_dic[key];
                 break;
             }
         }
-
         ctx.fill();
         ctx.strokeStyle="black";
         ctx.stroke();
-    
     }
     
     
     
 };
 
-
-
-// const rival_id_div = document.createElement("DIV");
-// rival_id_div.innerHTML = "Compare with: "
-// const rival_id_input = document.createElement("INPUT");
-// rival_id_input.id = "rival_id_input";
-// rival_id_input.type = "search";
-// rival_id_div.appendChild(rival_id_input)
-// checkbox.parentNode.insertBefore(rival_id_div,checkbox);
 
 function wrapper(){    
     getPerformances();
