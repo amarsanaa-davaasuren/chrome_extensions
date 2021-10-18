@@ -10,3 +10,9 @@ chrome.runtime.sendMessage(
         }
     }
 );
+
+
+
+let checkbox = document.getElementsByClassName("onoff")[0];
+
+console.log(checkbox.value);
