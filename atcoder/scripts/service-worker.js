@@ -22,18 +22,17 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             target: {tabId: tabId},
             files: ["./css/performance_visualizer.css"]
         })
-            .then(()=>{
+        .then(()=>{
+            chrome.scripting.executeScript({
+                target: {tabId: tabId},
+                files: ["./scripts/performance_visualizer.js"]
+        })
+        .then(()=>{
 
-                chrome.scripting.executeScript({
-                    target: {tabId: tabId},
-                    files: ["./scripts/performance_visualizer.js"]
-                })
-                    .then(()=>{
-
-                    })
+        })
                     
-            })
-            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
 });
 
