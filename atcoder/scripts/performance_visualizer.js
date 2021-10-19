@@ -3,12 +3,6 @@
 let performances = [];
 let performance_change = 0;
 let on_flag = 0;
-var contest_performance_changes = {
-    "ABC":0,
-    "ARC":0,
-    "AGC":0,
-    "other":0
-}
 
 const performance_visualizer_div = document.createElement("DIV");
 performance_visualizer_div.classList.add("performance_visualizer");
@@ -46,7 +40,13 @@ function getPerformances(){
 
     performances = [];
     performance_change = 0;
-    changes = [0,0,0,0];
+    var contest_performance_changes = {
+        "ABC":0,
+        "ARC":0,
+        "AGC":0,
+        "other":0
+    }
+    
 
     for (row of rows){
         if (row.cells.length === 1){
@@ -164,7 +164,7 @@ function drawOnCanvas(){
         ctx.globalAlpha = 1.0;
         let height = canvas.height-canvas.height*performances[i]/max_performance;
         ctx.beginPath();
-        let radius = 4.5;
+        let radius = 4;
         ctx.arc((i+1)*unit_width, height, radius, 0, Math.PI*2, 1);
         let performance = performances[i];
         for (var key in color_dic){

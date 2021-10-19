@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     checkbox.addEventListener('change', function() {
         let isChecked = $("#onoffCheckbox").is(":checked");
         chrome.storage.sync.set({ "atcoderLastToggle": isChecked})
-        $("#onoffCheckbox").checked = "false";
     });
-    
     
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		var tab = tabs[0];
@@ -32,13 +30,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		chrome.storage.sync.get("atcoderLastToggle", function(obj) {
 			if (obj.atcoderLastToggle != null){
-                console.log(obj.atcoderLastToggle);
                 $("#onoffCheckbox").prop('checked', obj.atcoderLastToggle);
             }
             else{
                 let isChecked = $("#onoffCheckbox").is(":checked");
                 chrome.storage.sync.set({ "atcoderLastToggle": isChecked})
-                $("#onoffCheckbox").checked = "false";
             }
 		});
 	});

@@ -1,8 +1,8 @@
 
 
 {
-    "name":"Atcoder Performance Colorizer",
-    "description": "chrome extension for atcoder",
+    "name":"Atcoder Performance Visualizer",
+    "description": "chrome extension for visualizing atcoder performance",
     "version":"0.9.3",
     "manifest_version": 3,
     "background": {
