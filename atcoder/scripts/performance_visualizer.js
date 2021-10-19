@@ -3,12 +3,11 @@
 let performances = [];
 let performance_change = 0;
 let on_flag = 0;
-let changes = [0,0,0,0]; // 0-abc 1-arc 3-agc 4-other
-var changes_contest = {
-    0: "ABC",
-    1:"ARC",
-    2:"AGC",
-    3:"other"
+var contest_performance_changes = {
+    "ABC":0,
+    "ARC":0,
+    "AGC":0,
+    "other":0
 }
 
 const performance_visualizer_div = document.createElement("DIV");
@@ -79,29 +78,29 @@ function getPerformances(){
         let contest_name = row.children[1].querySelector('a').innerHTML;
 
         if (contest_name.indexOf("Beginner") != -1){
-            changes[0] += change;
+            contest_performance_changes["ABC"] += change;
         }
         else if (contest_name.indexOf("Regular") != -1){
-            changes[1] += change;
+            contest_performance_changes["ARC"] += change;
         }
         else if (contest_name.indexOf("Grand") != -1){
-            changes[2] += change;
+            contest_performance_changes["AGC"] += change;
         }
         else{
-            changes[3] += change;
+            contest_performance_changes["other"] += change;
         }
         performance_change += change;
     }
     performance_analyzer.innerHTML = "Rating contributions (";
-
-    for(let i = 0; i < changes.length; i++){
-        change = changes[i]
-        contest = "<b>"+changes_contest[i]+"</b>";
+    for (const [key, value] of Object.entries(contest_performance_changes)){
+        change = value;
+        contest = "<b>"+key+"</b>";
         if (change != 0){
             performance_analyzer.innerHTML = performance_analyzer.innerHTML +contest +": " + change +", ";
         }
     }
     performance_analyzer.innerHTML = performance_analyzer.innerHTML.substring(0,performance_analyzer.innerHTML.length - 2) + ")";
+
 
     performances = performances.reverse();
 }
@@ -153,7 +152,7 @@ function drawOnCanvas(){
 
     
     for (let i = 0; i < performances.length; i++){
-        ctx.globalAlpha = 0.5;
+        ctx.globalAlpha = 0.3;
         if ((i+1)%10 == 0){
             ctx.beginPath();
             ctx.moveTo((i+1)*unit_width,0);
@@ -190,6 +189,7 @@ function wrapper(){
     getPerformances();
     drawOnCanvas();
 }
+
 document.querySelectorAll('input[type=search]').forEach(item => {
     item.addEventListener('keydown', event => {
         wrapper();
@@ -201,22 +201,15 @@ document.querySelectorAll('input[type=search]').forEach(item => {
 
 
 function main(){
-
-    chrome.runtime.sendMessage(
-        {
-            message:"get_on_flag",
-        },
-        response => {
-            if (response.message === "success"){
-                performance_visualizer_div.appendChild(performance_analyzer);
-                performance_visualizer_div.appendChild(canvas);
-                
-                let checkbox = document.getElementsByClassName("checkbox")[0]
-                checkbox.parentNode.insertBefore(performance_visualizer_div,checkbox);
-                wrapper();
-            }
+    chrome.storage.sync.get("atcoderLastToggle", function(obj) {
+        if (obj.atcoderLastToggle === true){
+            performance_visualizer_div.appendChild(performance_analyzer);
+            performance_visualizer_div.appendChild(canvas);
+            let checkbox = document.getElementsByClassName("checkbox")[0]
+            checkbox.parentNode.insertBefore(performance_visualizer_div,checkbox);
+            wrapper();
         }
-    );
+    });
 }
 
 main();
