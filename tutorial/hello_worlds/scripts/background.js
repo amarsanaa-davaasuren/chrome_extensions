@@ -1,0 +1,1 @@
+console.log("Hello Service Worker World! \n I am in background.js");
